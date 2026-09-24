@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 // Version inicial en memoria: mismos campos (id, producto, estado) que ya
-// consume pedidos.service.ts en el frontend. Cuando integres la base de datos
+// consume pedidos.service.ts en el frontend. Cuando integre la base de datos
 // cloud, esta clase debe delegar a un Service que use un Repository JPA
 // en vez de devolver datos fijos.
 @RestController
