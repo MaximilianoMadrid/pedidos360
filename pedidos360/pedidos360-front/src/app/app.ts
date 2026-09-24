@@ -14,11 +14,11 @@ export class App {
   autenticado = false;
 
   async login (){
-    await signInWithRedirect
+    await signInWithRedirect()
   }
 
   async logout(){
-    await signOut
+    await signOut()
   }
   async verSesion(){
     try{
@@ -31,7 +31,7 @@ export class App {
       console.log("access token: ", session.tokens?.accessToken?.toString())
     }
     catch(error){
-      console.log("No existe sesion", Error)
+      console.log("No existe sesion", error)
       this.autenticado = false;
     }
   }
