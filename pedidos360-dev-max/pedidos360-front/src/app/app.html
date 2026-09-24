@@ -1,0 +1,25 @@
+<main class = "container">
+  <h1> pedidos 360 </h1>
+  <p>
+    Frontend Cloud Native
+  </p>
+  <hr>
+  <button (click) ="login()">
+    iniciar sesion
+  </button>
+  <button (click) ="login()">
+    ver sesion
+  </button>
+
+  <button (click) = "logout()">
+    cerrar sesion
+  </button>
+
+  @if (autenticado){
+    <section>
+      <h2>Usuario autenticado</h2>
+      <h3>access token</h3>
+    </section>
+  }
+
+</main>
