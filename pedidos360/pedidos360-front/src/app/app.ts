@@ -1,9 +1,11 @@
 import { Component } from "@angular/core";
 import { SignInWithRedirectInput, signOut, fetchAuthSession, getCurrentUser, signInWithRedirect } from "aws-amplify/auth";
+import { Pedido, PedidosService } from "./pedidos.service";
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [JsonPipe],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -13,12 +15,18 @@ export class App {
   token = '';
   autenticado = false;
 
+  pedidos: any[] = [];
+  cargandoPedidos = false;
+  errorPedidos = '';
+
+  constructor(private pedidosService: PedidosService) {}
+
   async login (){
-    await signInWithRedirect
+    await signInWithRedirect();
   }
 
   async logout(){
-    await signOut
+    await signOut();
   }
   async verSesion(){
     try{
@@ -31,8 +39,24 @@ export class App {
       console.log("access token: ", session.tokens?.accessToken?.toString())
     }
     catch(error){
-      console.log("No existe sesion", Error)
+      console.log("No existe sesion", error)
       this.autenticado = false;
     }
+  }
+
+  consultarPedidos() {
+    this.cargandoPedidos = true;
+    this.errorPedidos = '';
+    this.pedidosService.obtenerPedidos().subscribe({
+      next: (data) => {
+        this.pedidos = data;
+        this.cargandoPedidos = false;
+      },
+      error: (error) => {
+        console.error(error);
+        this.errorPedidos = 'No fue posible consultar pedidos';
+        this.cargandoPedidos = false;
+      },
+    });
   }
 }

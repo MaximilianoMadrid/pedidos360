@@ -1,25 +1,203 @@
-<main class = "container">
-  <h1> pedidos 360 </h1>
-  <p>
-    Frontend Cloud Native
-  </p>
-  <hr>
-  <button (click) ="login()">
-    iniciar sesion
-  </button>
-  <button (click) ="login()">
-    ver sesion
-  </button>
+<main class="container">
 
-  <button (click) = "logout()">
-    cerrar sesion
-  </button>
+  <!-- Encabezado -->
+  <header class="header">
+    <div>
+      <span class="badge">CLOUD NATIVE</span>
+      <h1>Pedidos 360</h1>
+      <p>Gestión y consulta de pedidos</p>
+    </div>
+  </header>
 
-  @if (autenticado){
-    <section>
-      <h2>Usuario autenticado</h2>
-      <h3>access token</h3>
-    </section>
-  }
+
+  <!-- Panel de sesión -->
+  <section class="card">
+
+    <div class="card-header">
+      <div>
+        <h2>Sesión</h2>
+        <p>Administra la autenticación del sistema</p>
+      </div>
+
+      @if (autenticado) {
+        <span class="status success">
+          ● Autenticado
+        </span>
+      } @else {
+        <span class="status inactive">
+          ● No autenticado
+        </span>
+      }
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="btn btn-primary"
+        (click)="login()">
+        Iniciar sesión
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        (click)="verSesion()">
+        Ver sesión
+      </button>
+
+      <button
+        class="btn btn-danger"
+        (click)="logout()">
+        Cerrar sesión
+      </button>
+
+    </div>
+
+
+    @if (autenticado) {
+
+      <div class="session-info">
+
+        <div class="session-title">
+          <span class="icon">✓</span>
+
+          <div>
+            <h3>Usuario autenticado</h3>
+            <p>La sesión se encuentra activa.</p>
+          </div>
+        </div>
+
+        <div class="token-box">
+          <span>Access Token</span>
+          <div class="token-placeholder">
+            Token de acceso disponible
+          </div>
+        </div>
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- Panel de pedidos -->
+  <section class="card">
+
+    <div class="card-header">
+
+      <div>
+        <h2>Pedidos</h2>
+        <p>Consulta los pedidos registrados en el sistema</p>
+      </div>
+
+      @if (pedidos?.length > 0) {
+        <span class="count">
+          {{ pedidos.length }} pedidos
+        </span>
+      }
+
+    </div>
+
+
+    <div class="orders-action">
+
+      <button
+        class="btn btn-primary"
+        (click)="consultarPedidos()">
+
+        <span class="button-icon">↻</span>
+        Consultar pedidos
+
+      </button>
+
+    </div>
+
+
+    <!-- Cargando -->
+    @if (cargandoPedidos) {
+
+      <div class="message loading">
+        <div class="spinner"></div>
+        <span>Cargando pedidos...</span>
+      </div>
+
+    }
+
+
+    <!-- Error -->
+    @if (errorPedidos) {
+
+      <div class="message error">
+        <strong>Error</strong>
+        <span>{{ errorPedidos }}</span>
+      </div>
+
+    }
+
+
+    <!-- Resultado JSON -->
+    @if (!cargandoPedidos && !errorPedidos && pedidos?.length > 0) {
+
+      <div class="orders-list">
+
+        @for (pedido of pedidos; track pedido.id) {
+
+          <article class="order">
+
+            <div class="order-id">
+              #{{ pedido.id }}
+            </div>
+
+            <div class="order-info">
+
+              <h3>{{ pedido.producto }}</h3>
+
+              <span class="order-status">
+                {{ pedido.estado }}
+              </span>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    }
+
+
+    <!-- Sin pedidos -->
+    @if (!cargandoPedidos && !errorPedidos && pedidos?.length === 0) {
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          📦
+        </div>
+
+        <h3>No hay pedidos</h3>
+
+        <p>
+          Presiona "Consultar pedidos" para obtener información.
+        </p>
+
+      </div>
+
+    }
+
+
+    <!-- JSON original -->
+    <details class="debug">
+
+      <summary>
+        Ver respuesta JSON
+      </summary>
+
+      <pre>{{ pedidos | json }}</pre>
+
+    </details>
+
+  </section>
 
 </main>
