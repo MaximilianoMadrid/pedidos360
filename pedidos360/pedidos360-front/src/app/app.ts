@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { SignInWithRedirectInput, signOut, fetchAuthSession, getCurrentUser, signInWithRedirect } from "aws-amplify/auth";
+import { Pedido, PedidosService } from "./pedidos.service";
+
 
 @Component({
   selector: 'app-root',
@@ -12,6 +14,12 @@ export class App {
   usuario = '';
   token = '';
   autenticado = false;
+
+  pedidos: Pedido[] = [];
+  cargandoPedidos = false;
+  errorPedidos = '';
+
+  constructor(private pedidosService: PedidosService) {}
 
   async login (){
     await signInWithRedirect()
@@ -34,5 +42,21 @@ export class App {
       console.log("No existe sesion", error)
       this.autenticado = false;
     }
+  }
+
+  consultarPedidos() {
+    this.cargandoPedidos = true;
+    this.errorPedidos = '';
+    this.pedidosService.obtenerPedidos().subscribe({
+      next: (data) => {
+        this.pedidos = data;
+        this.cargandoPedidos = false;
+      },
+      error: (error) => {
+        console.error(error);
+        this.errorPedidos = 'No fue posible consultar pedidos';
+        this.cargandoPedidos = false;
+      },
+    });
   }
 }

@@ -23,4 +23,26 @@
     </section>
   }
 
+  <hr>
+
+  <button (click)="consultarPedidos()">
+    Consultar pedidos
+  </button>
+
+  @if (cargandoPedidos) {
+    <p>Cargando pedidos...</p>
+  }
+
+  @if (errorPedidos) {
+    <p style="color: red;">{{ errorPedidos }}</p>
+  }
+
+  @if (pedidos.length > 0) {
+    <ul>
+      @for (pedido of pedidos; track pedido.id) {
+        <li>{{ pedido.id }} - {{ pedido.producto }} - {{ pedido.estado }}</li>
+      }
+    </ul>
+  }
+
 </main>
