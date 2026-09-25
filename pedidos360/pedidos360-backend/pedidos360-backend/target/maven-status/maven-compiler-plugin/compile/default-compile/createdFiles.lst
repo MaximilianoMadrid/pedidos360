@@ -1,3 +1,6 @@
 cl\duoc\pedidos360_backend\config\SecurityConfig.class
+cl\duoc\pedidos360_backend\model\Pedido.class
 cl\duoc\pedidos360_backend\controller\Pedidos360Controller.class
+cl\duoc\pedidos360_backend\repository\PedidoRepository.class
+cl\duoc\pedidos360_backend\service\PedidoService.class
 cl\duoc\pedidos360_backend\Pedidos360BackendApplication.class
