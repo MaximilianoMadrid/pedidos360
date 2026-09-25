@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
 import { SignInWithRedirectInput, signOut, fetchAuthSession, getCurrentUser, signInWithRedirect } from "aws-amplify/auth";
 import { Pedido, PedidosService } from "./pedidos.service";
-
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [JsonPipe],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -15,18 +15,18 @@ export class App {
   token = '';
   autenticado = false;
 
-  pedidos: Pedido[] = [];
+  pedidos: any[] = [];
   cargandoPedidos = false;
   errorPedidos = '';
 
   constructor(private pedidosService: PedidosService) {}
 
   async login (){
-    await signInWithRedirect()
+    await signInWithRedirect();
   }
 
   async logout(){
-    await signOut()
+    await signOut();
   }
   async verSesion(){
     try{

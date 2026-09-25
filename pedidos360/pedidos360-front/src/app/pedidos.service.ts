@@ -12,7 +12,7 @@ export interface Pedido {
 export class PedidosService {
   // TODO: reemplaza por tu Invoke URL real de API Gateway, por ejemplo:
   // https://<API_ID>.execute-api.us-east-1.amazonaws.com/test/api/pedidos
-  private readonly url = '<https://y2xx6idd56.execute-api.us-east-1.amazonaws.com/test/api/pedidos';
+  private readonly url = 'https://y2xx6idd56.execute-api.us-east-1.amazonaws.com/test/api/pedidos';
 
   constructor(private http: HttpClient) {}
 
