@@ -2,6 +2,7 @@ package cl.duoc.pedidos360_backend.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import cl.duoc.pedidos360_backend.service.PedidoService;
 // en vez de devolver datos fijos en memoria.
 @RestController
 @RequestMapping("/api/pedidos")
+@CrossOrigin(origins = "http://localhost:4200")
 public class Pedidos360Controller {
 
     private final PedidoService pedidoService;
